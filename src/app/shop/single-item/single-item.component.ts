@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService, CurrencyService, CartService } from '../../services';
 import { IProduct } from 'src/app/interfaces';
 
@@ -10,10 +10,13 @@ import { IProduct } from 'src/app/interfaces';
 export class SingleItemComponent implements OnInit {
 
   @Input() product:IProduct;
+  @Output() rise = new EventEmitter<string>();
+
+
   loading = true;
   selectedCurrency: string = null;
   showCurrencyPrice: boolean = false;
-  
+
   constructor(private productService: ProductService, private cartService: CartService,
     private currencyService: CurrencyService) {
  }
@@ -59,6 +62,7 @@ export class SingleItemComponent implements OnInit {
 
   addToCart(product) {
     this.cartService.addToCart(product);
+    this.rise.emit("Thank you");
   }
 
 

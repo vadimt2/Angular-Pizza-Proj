@@ -80,5 +80,9 @@ export class ProductsComponent implements OnInit {
     return this.cartService.getQuantity(product);
   }
 
+  onRise(rise:string){
+      console.log(rise);
+  }
+
 
 }

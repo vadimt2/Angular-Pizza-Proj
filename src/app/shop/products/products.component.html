@@ -5,7 +5,8 @@
  <div class="container-fluid px-5 py-5 mx-auto">
     <div class="row justify-content-between px-3">
         <div class="block text-center" *ngFor="let product of products, let i=index"> 
-            <app-single-item [product]="product"></app-single-item>
+            <h4>{{title}}</h4>
+            <app-single-item [product]="product" (rise)="onRise($event)"></app-single-item>
 
         </div>
 
