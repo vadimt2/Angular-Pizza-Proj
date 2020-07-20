@@ -1,0 +1,28 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {ProductComponent, ProductsComponent, CheckoutComponent, CartComponent, ConfirmationOrderComponent, OrderHistoryComponent} from './index';
+import { ShopRoutingModule } from './shop-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from '../home/home.component';
+import { SingleItemComponent } from './single-item/single-item.component';
+
+
+@NgModule({
+  declarations: [
+    ProductComponent,
+    ProductsComponent,
+    CheckoutComponent,
+    CartComponent,
+    ConfirmationOrderComponent,
+    OrderHistoryComponent,
+    HomeComponent,
+    SingleItemComponent
+  ],
+  imports: [
+    CommonModule,
+    ShopRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ]
+})
+export class ShopModule { }

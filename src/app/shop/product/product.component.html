@@ -1,0 +1,132 @@
+<div *ngIf="product">
+    <div class="container dark-grey-text mt-5">
+  
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+    
+        <div class="col-md-6">
+          <div class="pro-img-details">
+              <img src="{{product.images[0].imageData}}" alt="">
+          </div>
+          <div class="pro-img-list" *ngFor="let image of product.images, let i=index">
+              <a href="#">
+                  <img class="image-product" src="{{image.imageData}}" alt="">
+              </a>
+          </div>
+      </div>
+        <!--Grid column-->
+    
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+    
+          <!--Content-->
+          <div class="p-4">
+    
+            <div class="mb-3">
+              <a href="">
+                <span class="badge purple mr-1">{{product.categoryItems[0].category.title}}</span>
+              </a>
+            </div>
+    
+            <p class="lead">
+              <span class="mr-1">
+                <!-- Price minus discount -->
+                <del></del>
+              </span>
+              <span *ngIf="!showCurrencyPrice">{{product.price | currency:selectedCurrency}}</span>
+              <span *ngIf="showCurrencyPrice">{{product.currencyPrice | currency:selectedCurrency}}</span>
+            </p>
+    
+            <h4 class="pro-d-title">
+              <a href="#" class="">
+                  {{product.title}}
+              </a>
+            </h4>
+            <p class="lead font-weight-bold">Description</p>
+    
+            <p>{{product.description}}</p>
+    
+            <form class="d-flex justify-content-left">
+  
+              <!-- Default input -->
+              <!-- <label *ngIf="quantityIncCart > 0">{{quantityIncCart}}</label>
+              <input type="number" name="quantity" [(ngModel)]="quantity" min="1" aria-label="quantity" class="form-control" style="width: 100px">
+              <button class="btn btn-primary btn-md my-0 p" (click)="setQuantity(product,quantity)" type="submit">Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </button> -->
+  
+              
+  
+              <div>
+                <button class="btn btn-primary btn-md my-0 p" type="submit" *ngIf="!(getQuantity(product)>0)" (click)="addToCart(product)">ADD TO CART
+                  <i class="fas fa-shopping-cart ml-1"></i>
+                </button>
+                <div *ngIf="(getQuantity(product)>0)">
+                    <button class="btn btn-primary btn-lg" (click)="removeFromCart(product)"> - </button>
+                      <label class="getQuantity">{{getQuantity(product)}}  </label>
+                    <button class="btn btn-primary btn-lg" (click)="addToCart(product)" > + </button>
+                </div>
+            </div>
+    
+            </form>
+    
+          </div>
+          <!--Content-->
+    
+        </div>
+        <!--Grid column-->
+    
+      </div>
+      <!--Grid row-->
+    
+      <hr>
+    
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+    
+        <!--Grid column-->
+        <div class="col-md-6 text-center">
+    
+          <h4 class="my-4 h4">Additional information</h4>
+    
+          <p>{{product.title}}</p>
+    
+        </div>
+        <!--Grid column-->
+    
+      </div>
+      <!--Grid row-->
+    
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+    
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4">
+    
+          <img src="{{product.images[0].imageData}}" class="img-fluid" alt="">
+    
+        </div>
+        <!--Grid column-->
+    
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+    
+          <img src="{{product.images[0].imageData}}" class="img-fluid" alt="">
+    
+        </div>
+        <!--Grid column-->
+    
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+    
+          <img src="{{product.images[0].imageData}}" class="img-fluid" alt="">
+    
+        </div>
+        <!--Grid column-->
+    
+      </div>
+      <!--Grid row-->
+    
+    </div>
+    
+  </div>

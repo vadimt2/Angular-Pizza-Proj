@@ -1,0 +1,77 @@
+<h1>New features were added recently, Back-end server will be updated soon</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 body-main">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4"> <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png" /> </div>
+                    <div class="col-md-8 text-right">
+                        <h4 style="color: #F81D2D;"><strong>Vadim T Pizza</strong></h4>
+                        <p>Israel</p>
+                        <p>+972-50-691-3544</p>
+                        <p>vadimy2@gmail.com</p>
+                    </div>
+                </div> <br />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>INVOICE</h2>
+                        <h5>{{order.confirmationNumber}}</h5>
+                    </div>
+                </div> <br />
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h5>Description</h5>
+                                </th>
+                                <th>
+                                    <h5>Quantity</h5>
+                                </th>
+                                <th>
+                                    <h5>Amount</h5>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of getCartInfo.data.products">
+                                <td class="col-md-9">{{product.title}}</td>
+                                <td class="col-md-3"><i class="fa fa-plus" area-hidden="true"></i> {{product.quantity}} </td>
+                                <td class="col-md-3"> {{product.price}} </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">
+                                    <p> <strong>Shipment method: </strong> </p>
+                                    <p> <strong>Shipment and Taxes: </strong> </p>
+                                    <p> <strong>Total Amount: </strong> </p>
+                                    <p> <strong>Discount: 0 </strong> </p>
+                                </td>
+                                <td>
+                                    <p> <strong>> comming soon </strong> </p>
+                                    <p> <strong>{{order.shippingCost | currency:order.currencyString}}</strong> </p>
+                                    <p> <strong> {{order.total | currency:order.currencyString}}</strong> </p>
+                                    <p> <strong> 0</strong> </p>
+                                </td>
+                            </tr>
+                            <tr style="color: #F81D2D;">
+                                <td class="text-right">
+                                    <h4><strong>Total:</strong></h4>
+                                </td>
+                                <td class="text-left">
+                                    <h4><strong>{{order.total | currency:order.currencyString}}</strong></h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="col-md-12">
+                        <p><b>Date :</b> {{order.orderDate | date}}</p> <br />
+                        <p><b>Signature</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

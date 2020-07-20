@@ -1,0 +1,39 @@
+<h1>New features were added recently, Back-end server will be updated soon</h1>
+<h5>Go to <a href="https://num1.co.il">num1.co.il</a> and share with your friends!</h5>
+<span>Go to <a href="https://it.num1.co.il/contact-2/">it.num1.co.il</a> You can contact me here</span>
+<form class="form-inline md-form mr-auto mb-4">
+    <i class="fas fa-search" aria-hidden="true"></i>
+    <input [(ngModel)]="searchValue" name="searchValue" class="form-control form-control-sm mr-sm-2 w-75" type="text" placeholder="Search"
+      aria-label="Search">
+    <button class="btn btn-primary btn-rounded btn-sm my-0" (click)="searchOrderHistory(searchValue)" type="submit">Search</button>
+  </form>
+  <div>search for vadimt2@gmail.com</div>
+  <span *ngIf="orderHistory.length < 1 && search"><h3>No order history</h3></span>
+<table class="table" *ngIf="true">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order Confirmation</th>
+        <th scope="col">Date</th>
+        <th scope="col">Items Quantity</th>
+        <th scope="col">CurrencyString</th>
+        <th scope="col">CurrencyValue</th>
+        <th scope="col">ShippingCost</th>
+        <th scope="col">Total</th>
+        <th scope="col">Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orderHistory, let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{order.confirmationNumber}}</td>
+        <td>{{order.orderDate  | date}}</td>
+        <td>{{order.orderDetails.length}}</td>
+        <td>{{order.currencyString}}</td>
+        <td>{{order.currencyValue}}</td>
+        <td>{{order.shippingCost}}</td>
+        <td>{{order.total | currency:'USD'}}</td>
+        <td>{{order.note}}</td>
+      </tr>
+    </tbody>
+  </table>

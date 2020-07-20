@@ -1,0 +1,46 @@
+<div class="container h-100 d-flex justify-content-center" *ngIf="loading">
+        <span class="spinner-border loadingtop"></span>
+ </div>
+
+ <div class="container-fluid px-5 py-5 mx-auto">
+    <div class="row justify-content-between px-3">
+        <div class="block text-center" *ngFor="let product of products, let i=index"> 
+            <app-single-item [product]="product"></app-single-item>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- <div class="container-fluid px-5 py-5 mx-auto">
+    <div class="row justify-content-between px-3">
+        <div class="block text-center" *ngFor="let product of products, let i=index"> <img class="image" src="{{product.images[0].imageData}}">
+            <div class="info py-2 px-2">
+                <div class="row px-3">
+                    <div class="cart">
+                        <p  class="mb-0 sm-font" *ngIf="!(getQuantity(product)>0)" (click)="addToCart(product)">ADD TO CART
+                        </p>
+                        <div *ngIf="(getQuantity(product)>0)">
+                            <button class="btn btn-primary btn-sm" (click)="removeFromCart(product)"> - </button>
+                              <label class="getQuantity"> {{getQuantity(product)}} </label>
+                            <button class="btn btn-primary btn-sm" (click)="addToCart(product)" > + </button>
+                        </div>
+                    </div>
+                    <div class="order">
+                        <p class="mb-0 sm-font"  [routerLink]="['/product', product.id]"> View details </p>
+                    </div>
+                </div>
+                <div class="text-left">
+                    <h5 class="mb-0 mt-2">{{product.title}}</h5> <small class="text-muted mb-1"><p class="truncate">{{product.description}}</p></small>
+                </div>
+                <div class="row px-3">
+                    <h5 *ngIf="!showCurrencyPrice">{{product.price | currency:selectedCurrency}}</h5> 
+                    <h5 *ngIf="showCurrencyPrice">{{product.currencyPrice | currency:selectedCurrency}}</h5>
+                    <p class="text-muted ml-2"><del></del>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> -->

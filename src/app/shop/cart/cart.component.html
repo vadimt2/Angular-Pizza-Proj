@@ -1,0 +1,131 @@
+<div class="px-4 px-lg-0">
+  <div class="pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+          <!-- Shopping cart table -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase">Product</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Price</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Quantity</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Remove</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="product-cart" *ngFor="let product of products, let i=index">
+                  <th scope="row" class="border-0">
+                    <div class="p-2">
+                      <img src="{{product.images[0].url}}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                      <div class="ml-3 d-inline-block align-middle">
+                        <h5 class="mb-0"> <a class="text-dark d-inline-block align-middle"
+                            [routerLink]="['/product', product.id]">{{product.title}}</a></h5><span
+                          class="text-muted font-weight-normal font-italic d-block">Category:
+                          {{product.categoryItems[0].category.title}}</span>
+                      </div>
+                    </div>
+                  </th>
+                  <td class="border-0 align-middle">
+                    <strong *ngIf="!showCurrencyPrice">{{product.price | currency:selectedCurrency}}</strong>
+                    <strong *ngIf="showCurrencyPrice">{{product.currencyPrice | currency:selectedCurrency}}</strong>
+                  </td>
+                  <td class="border-0 align-middle"><strong>
+                      <span *ngIf="product.quantity > 0">
+                        <button class="btn btn-primary" (click)="removeFromCart(product)"> - </button>
+                        <label class="label-small">{{product.quantity}}</label>
+                        <button class="btn btn-primary" (click)="addToCart(product)"> + </button>
+                      </span>
+                    </strong></td>
+                  <td class="border-0 align-middle"><a (click)="removeItem(product)" class="text-dark"><i
+                        class="fa fa-trash"></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End -->
+        </div>
+      </div>
+
+      <form [formGroup]="startOrderForm" (ngSubmit)="onSubmit(startOrderForm)">
+        <div class="row py-5 p-4 bg-white rounded shadow-sm">
+          <div class="col-lg-6">
+            <!-- Will be developed in the feature -->
+            <div *ngIf="false" class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+            <div *ngIf="false" class="p-4">
+              <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+              <div class="input-group mb-4 border rounded-pill p-2">
+                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3"
+                  class="form-control border-0" disabled>
+                <div class="input-group-append border-0">
+                  <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill" disabled><i
+                      class="fa fa-gift mr-2"></i>Apply coupon</button>
+                </div>
+              </div>
+            </div>
+            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+            <div class="p-4">
+              <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box
+                below</p>
+              <textarea cols="30" rows="2" formControlName="note" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+            <div class="p-4">
+              <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.
+              </p>
+              <ul class="list-unstyled mb-4">
+                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal
+                  </strong>
+                  <span *ngIf="!showCurrencyPrice">{{getSubTotal() | currency:selectedCurrency}}</span>
+                  <span *ngIf="showCurrencyPrice">{{getSubTotal() * euro | currency:selectedCurrency}}</span>
+                </li>
+                <li class="d-flex justify-content-between py-3 border-bottom">
+                  Must have at least one product in the cart for shipping!
+                </li>
+                <li class="d-flex justify-content-between py-3 border-bottom">
+                  <strong class="text-muted underline">
+                    Shipping and handling
+                    <div [ngClass]="products.length < 1? 'hide':''">
+                      <div *ngFor="let shipping of shippings">
+                        <input type="radio" formControlName="shipping" name="shipping" [value]="shipping"
+                          (change)="onItemChange(shipping.price)">
+                        <label for="{{shipping.title}}">
+                          {{shipping.title}}
+                          <span *ngIf="!showCurrencyPrice">{{shipping.price | currency:selectedCurrency}}</span>
+                          <span *ngIf="showCurrencyPrice">{{shipping.price * euro | currency:selectedCurrency}}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </strong>
+                    <strong *ngIf="!showCurrencyPrice">{{shippingPrice | currency:selectedCurrency}}</strong>
+                    <strong *ngIf="showCurrencyPrice">{{shippingPrice * euro | currency:selectedCurrency}}</strong>
+                  </li>
+                <li class="d-flex justify-content-between py-3 border-bottom">
+                  <strong class="text-muted">Tax</strong><strong>$0.00</strong>
+                </li>
+                <li class="d-flex justify-content-between py-3 border-bottom">
+                  <strong class="text-muted">Total</strong>
+                  <h5 class="font-weight-bold" *ngIf="!showCurrencyPrice">{{getTotal() | currency:selectedCurrency}}</h5>
+                    <h5 class="font-weight-bold" *ngIf="showCurrencyPrice">{{getTotal() * euro | currency:selectedCurrency}}</h5>
+                </li>
+              </ul><button type="submit" class="btn btn-dark rounded-pill py-2 btn-block"
+                [disabled]="startOrderForm.invalid">Procceed to checkout</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

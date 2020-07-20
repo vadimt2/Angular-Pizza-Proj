@@ -1,0 +1,298 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm)" class="card p-2">
+    <div class="container marginButtom">
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4"
+          src="https://cdn.iconscout.com/icon/premium/png-512-thumb/demo-1773190-1508505.png" alt="" width="72"
+          height="72">
+        <h2>Checkout form</h2>
+        <p class="lead">For support call +972506913544</p>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">{{cartTotal}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed"
+              *ngFor="let product of products, let i=index">
+              <div>
+                <h6 class="my-0">{{product.title}}</h6>
+                <small class="text-muted">{{product.quantity}}</small>
+              </div>
+              <span class="text-muted" *ngIf="!showCurrencyPrice">{{product.price | currency:selectedCurrency}}</span>
+              <span class="text-muted" *ngIf="showCurrencyPrice">{{product.currencyPrice | currency:selectedCurrency}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Sub Total</span>
+              <small>
+                <span *ngIf="!showCurrencyPrice">{{subTotal | currency:selectedCurrency}}</span>
+                <span *ngIf="showCurrencyPrice">{{subTotal * newCurrency | currency:selectedCurrency}}</span>
+              </small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Tax</span>
+              <small>0</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Shipping</span>
+              <small *ngIf="!showCurrencyPrice">{{shippingPrice | currency:selectedCurrency}}</small>
+              <small *ngIf="showCurrencyPrice"> {{shippingPrice * newCurrency | currency:selectedCurrency}}</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total</span>
+              <strong *ngIf="!showCurrencyPrice">{{shippingPrice + subTotal | currency:selectedCurrency}}</strong>
+              <strong *ngIf="showCurrencyPrice">{{((shippingPrice + subTotal) * newCurrency) | currency:selectedCurrency}}</strong>
+            </li>
+            <li *ngIf="DisplayOnDevFeatures" class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>EXAMPLECODE</small>
+              </div>
+              <span class="text-success">-$0</span>
+            </li>
+          </ul>
+  
+          <div *ngIf="DisplayOnDevFeatures" class="input-group">
+            <input disabled type="text" class="form-control" placeholder="Promo code">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-secondary">Redeem</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Billing address</h4>
+          <!-- <form class="needs-validation" novalidate> -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstNameB">First name</label>
+                <input type="text" formControlName="firstNameB" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstNameB.errors }" />
+                <div *ngIf="submitted && f.firstNameB.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstNameB.errors.required">First name is required</div>
+              </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastNameB">Last name</label>
+                <input type="text" formControlName="lastNameB" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastNameB.errors }" />
+                <div *ngIf="submitted && f.lastNameB.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastNameB.errors.required">Last name is required</div>
+              </div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="emailB">Email <span class="text-muted"></span></label>
+              <input type="email" formControlName="emailB" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailB.errors }" />
+              <div *ngIf="submitted && f.emailB.errors" class="invalid-feedback">
+                <div *ngIf="f.emailB.errors.required">Email is required</div>
+            </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="phoneB">Phone <span class="text-muted"></span></label>
+              <input type="number" formControlName="phoneB" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneB.errors }" />
+              <div *ngIf="submitted && f.phoneB.errors" class="invalid-feedback">
+                <div *ngIf="f.phoneB.errors.required">Phone is required</div>
+            </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="addressB">Address</label>
+              <input type="text" formControlName="addressB" class="form-control" placeholder="1234 Main St" [ngClass]="{ 'is-invalid': submitted && f.addressB.errors }" />
+              <div *ngIf="submitted && f.addressB.errors" class="invalid-feedback">
+                <div *ngIf="f.addressB.errors.required">Address is required</div>
+            </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="address2B">Address 2 <span class="text-muted">(Optional only if address same as
+                  shipping)</span></label>
+                <input type="text" formControlName="address2B" class="form-control" placeholder="Apartment or suite and floor, only for Apartment or Buliding." [ngClass]="{ 'is-invalid': submitted && f.address2B.errors }" />
+                <div *ngIf="submitted && f.address2B.errors" class="invalid-feedback">
+                  <div *ngIf="f.address2B.errors.required">Address 2 is required</div>
+              </div>            
+              </div>
+  
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label for="countryB">Country</label>
+                <select class="custom-select d-block w-100" formControlName="countryB" [ngClass]="{ 'is-invalid': submitted && f.countryB.errors }">
+                  <option value="">Choose...</option>
+                  <option>Israel</option>
+                </select>
+                <div *ngIf="submitted && f.countryB.errors" class="invalid-feedback">
+                  <div *ngIf="f.countryB.errors.required">Country is required</div>
+              </div>  
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="stateB">State</label>
+                <select class="custom-select d-block w-100" formControlName="stateB" [ngClass]="{ 'is-invalid': submitted && f.stateB.errors }">
+                  <option value="">Choose...</option>
+                  <option>Israel</option>
+                </select>
+                <div *ngIf="submitted && f.stateB.errors" class="invalid-feedback">
+                  <div *ngIf="f.stateB.errors.required">State is required</div>
+              </div> 
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="zipB">Zip</label>
+                <input type="text" class="form-control" formControlName="zipB" placeholder="" [ngClass]="{ 'is-invalid': submitted && f.zipB.errors }">
+                <div *ngIf="submitted && f.zipB.errors" class="invalid-feedback">
+                  <div *ngIf="f.zipB.errors.required">Zip is required</div>
+              </div> 
+              </div>
+            </div>
+  
+  
+            <hr class="mb-4">
+            <span *ngIf="delivery">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="theSameAddress" (change)="onItemChange($event)" name="theSameAddress" formControlName="theSameAddress" class="custom-control-input">
+                <label class="custom-control-label" for="theSameAddress">Shipping address is the same as my billing
+                  address</label>
+              </div>
+            </span>
+            <!-- Current option disabled -->
+            <div *ngIf="DisplayOnDevFeatures" class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="save-info" disabled>
+              <label class="custom-control-label" for="save-info">Save this information for next time</label>
+            </div>
+            <hr *ngIf="DisplayOnDevFeatures" class="mb-4">
+  
+            <!-- start and will be a compponnet -->
+            <div class="container marginButtom" *ngIf="!isAddressTheSame && delivery">
+              <div class="row">
+                <div class="col-md-8 order-md-1">
+                  <h4 class="mb-3">Shipping address</h4>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="firstNameSh">First name</label>
+                        <input type="text" class="form-control" formControlName="firstNameSh" [ngClass]="{ 'is-invalid': submitted && f.firstNameSh.errors }">
+                          <div *ngIf="submitted && f.firstNameSh.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstNameSh.errors.required">First name is required</div>
+                        </div> 
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="lastNameSh">Last name</label>
+                        <input type="text" class="form-control" formControlName="lastNameSh" [ngClass]="{ 'is-invalid': submitted && f.lastNameSh.errors }">
+                          <div *ngIf="submitted && f.lastNameSh.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastNameSh.errors.required">Last name is required</div>
+                        </div> 
+                      </div>
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="addressSh">Address</label>
+                      <input type="text" class="form-control" formControlName="addressSh" placeholder="1234 Main St"
+                      [ngClass]="{ 'is-invalid': submitted && f.addressSh.errors }">
+                        <div *ngIf="submitted && f.addressSh.errors" class="invalid-feedback">
+                          <div *ngIf="f.zipB.addressSh.required">Address is required</div>
+                      </div> 
+                    </div>
+  
+                    <div class="mb-3">
+                      <label for="addressSh2">Address 2 <span class="text-muted" required></span></label>
+                      <input type="text" class="form-control" formControlName="addressSh2"
+                        placeholder="Apartment or suite" [ngClass]="{ 'is-invalid': submitted && f.addressSh2.errors }">
+                        <div *ngIf="submitted && f.addressSh2.errors" class="invalid-feedback">
+                          <div *ngIf="f.addressSh2.errors.required">Address 2 is required</div>
+                      </div> 
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-5 mb-3">
+                        <label for="countrySh">Country</label>
+                        <select class="custom-select d-block w-100" formControlName="countrySh" [ngClass]="{ 'is-invalid': submitted && f.countrySh.errors }">
+                          <option value="">Choose...</option>
+                          <option>Israel</option>
+                        </select>
+                        <div *ngIf="submitted && f.countrySh.errors" class="invalid-feedback">
+                          <div *ngIf="f.countrySh.errors.required">Country is required</div>
+                      </div> 
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="stateSh">State</label>
+                        <select class="custom-select d-block w-100" formControlName="stateSh" [ngClass]="{ 'is-invalid': submitted && f.stateSh.errors }">
+                          <option value="">Choose...</option>
+                          <option>Israel</option>
+                        </select>
+                        <div *ngIf="submitted && f.stateSh.errors" class="invalid-feedback">
+                          <div *ngIf="f.stateSh.errors.required">State is required</div>
+                      </div> 
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="zipSh">Zip</label>
+                        <input type="text" class="form-control" formControlName="zipSh" [ngClass]="{ 'is-invalid': submitted && f.zipSh.errors }">
+                        <div *ngIf="submitted && f.zipSh.errors" class="invalid-feedback">
+                          <div *ngIf="f.zipSh.errors.required">Zip is required</div>
+                      </div> 
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- end -->
+  
+            <!-- will be added in the future  -->
+  
+            <h4 class="mb-3" *ngIf="DisplayOnDevFeatures">Payment</h4>
+  
+            <div class="d-block my-3" *ngIf="DisplayOnDevFeatures">
+              <div class="custom-control custom-radio">
+                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked disabled>
+                <label class="custom-control-label" for="credit">Credit card</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" disabled>
+                <label class="custom-control-label" for="debit">Debit card</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" disabled>
+                <label class="custom-control-label" for="paypal">Paypal</label>
+              </div>
+            </div>
+            <div class="row" *ngIf="DisplayOnDevFeatures">
+              <div class="col-md-6 mb-3">
+                <label for="cc-name">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" placeholder="" disabled>
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                  Name on card is required
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="cc-number">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" placeholder="" disabled>
+                <div class="invalid-feedback">
+                  Credit card number is required
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="DisplayOnDevFeatures">
+              <div class="col-md-3 mb-3">
+                <label for="cc-expiration">Expiration</label>
+                <input type="text" class="form-control" id="cc-expiration" placeholder="" disabled>
+                <div class="invalid-feedback">
+                  Expiration date required
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="cc-expiration">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" disabled>
+                <div class="invalid-feedback">
+                  Security code required
+                </div>
+              </div>
+            </div>
+            <hr class="mb-4" *ngIf="DisplayOnDevFeatures">
+            <button [disabled]="loading" class="btn btn-primary btn-lg btn-block">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    checkout
+                </button>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </form>

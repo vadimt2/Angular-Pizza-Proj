@@ -1,0 +1,6 @@
+export * from './cart/cart.component'
+export * from './checkout/checkout.component'
+export * from './confirmation-order/confirmation-order.component'
+export * from './order-history/order-history.component'
+export * from './product/product.component'
+export * from './products/products.component'
