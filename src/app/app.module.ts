@@ -20,6 +20,8 @@ import { CurrencyService } from './services/currency/currency.service';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { AlertService } from './services';
 import { HomeComponent } from './home/home.component';
+import { AccountModule } from './account/account.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -30,19 +32,22 @@ import { HomeComponent } from './home/home.component';
     AlertComponent
     ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    AccountModule
 
   ],
   providers: [ProductService, CurrencyPipe, CartService, GetCurrencyService, ShippingService,
      OrderService, CurrencyService, AlertService,
       {provide: LocationStrategy, useClass: PathLocationStrategy},
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

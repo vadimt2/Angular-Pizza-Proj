@@ -1,24 +1,25 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
+import { AccountRoutingModule } from './account-routing.module';
+import { AccountComponent } from './account.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        AccountRoutingModule,
-        FormsModule,
-
-    ],
-    declarations: [
-        LayoutComponent,
-        LoginComponent,
-        RegisterComponent,
-    ]
+  declarations: [
+    AccountComponent, 
+    LayoutComponent,
+    LoginComponent,
+    RegisterComponent,],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AccountRoutingModule,
+    FormsModule,
+  ]
 })
 export class AccountModule { }

@@ -32,7 +32,7 @@
         <td>{{order.currencyString}}</td>
         <td>{{order.currencyValue}}</td>
         <td>{{order.shippingCost}}</td>
-        <td>{{order.total | currency:'USD'}}</td>
+        <td>{{order.total | currency:order.currencyString}}</td>
         <td>{{order.note}}</td>
       </tr>
     </tbody>

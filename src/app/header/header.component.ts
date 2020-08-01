@@ -24,11 +24,13 @@ export class HeaderComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.currencyService.defualtCurrency = this.defaultCurrency;
-    this.currencyService.setCurrency(this.defaultCurrency);
     this.accountService.user.subscribe(user => {
+      console.log("user");
+      console.log(user);
       this.user = user;
     })
+    this.currencyService.defualtCurrency = this.defaultCurrency;
+    this.currencyService.setCurrency(this.defaultCurrency);
 
     this.cartProductCount = 0;
     if(this.cartService.totalcartvalue > 0){

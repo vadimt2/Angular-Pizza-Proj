@@ -4,9 +4,9 @@
 import { HttpHeaders } from '@angular/common/http';
 
 export const environment = {
-  // apiUrl:"https://demo-pizza-api.herokuapp.com/api/",
+  apiUrl:"https://demo-pizza-api.herokuapp.com/api/",
   production: false,
-  apiUrl: "http://localhost:61307/api/"
+  // apiUrl: "http://localhost:61307/api/"
 };
 
 export const endPoint = {

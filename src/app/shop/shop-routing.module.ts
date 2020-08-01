@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { ShopComponent } from './shop.component';
 import {ProductsComponent, CartComponent, CheckoutComponent, ConfirmationOrderComponent, OrderHistoryComponent, ProductComponent} from '../shop'
 import { HomeComponent } from '../home/home.component';
 
@@ -12,7 +14,6 @@ const routes: Routes = [{ path: '', redirectTo: '/', pathMatch: 'full' },
 { path: 'order-history', component: OrderHistoryComponent },
 { path: 'product/:id', component: ProductComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

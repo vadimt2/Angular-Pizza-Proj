@@ -5,10 +5,12 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
 import { SingleItemComponent } from './single-item/single-item.component';
+import { ShopComponent } from './shop.component';
 
 
 @NgModule({
   declarations: [
+    ShopComponent,
     ProductComponent,
     ProductsComponent,
     CheckoutComponent,
@@ -16,8 +18,7 @@ import { SingleItemComponent } from './single-item/single-item.component';
     ConfirmationOrderComponent,
     OrderHistoryComponent,
     HomeComponent,
-    SingleItemComponent
-  ],
+    SingleItemComponent],
   imports: [
     CommonModule,
     ShopRoutingModule,

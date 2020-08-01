@@ -30,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   selectedCurrency: string = null;
   showCurrencyPrice: boolean = false;
   loadingBtn:boolean = false;
+  user:IUser = null;
  
  
   loading = false;
@@ -240,14 +241,16 @@ export class CheckoutComponent implements OnInit {
       // WILL ME A SERVICE CALL BY ID FROM THE LOGIN DATA AUTH SERVICE
 
 
-      // NOT REGISTERED WILL BE CREATED!!!
       let user: IUser = new User();
-      user.email = biilingInfo.email;
-      user.firstName = biilingInfo.firstName;
-      user.lastName = biilingInfo.lastName;
-      user.isRegistered = false;
-      user.phone = biilingInfo.phone;
-      user.roleId = 2;
+      if(!this.user){
+        user.email = biilingInfo.email;
+        user.firstName = biilingInfo.firstName;
+        user.lastName = biilingInfo.lastName;
+        user.isRegistered = false;
+        user.phone = biilingInfo.phone;
+        user.roleId = 3;
+      }
+      
 
 
       let order: IOrder = new Order();
@@ -255,8 +258,14 @@ export class CheckoutComponent implements OnInit {
       order.note = this.getCartInfo.note;
       order.shippingId = this.getCartInfo.shipping.id;
       order.tax = 0;
-      order.userId = 0;
-      order.user = user;
+
+      if(this.user){
+        order.user = this.user;
+      }
+      else{
+        order.userId = 0;
+        order.user = user
+      };
 
       if(this.currencyService.defualtCurrency !==  this.selectedCurrency){
         order.shippingCost =  this.shippingPrice * this.newCurrency;
@@ -293,7 +302,6 @@ export class CheckoutComponent implements OnInit {
       if(!this.loadingBtn){
         this.loadingBtn = true;
         this.orderService.inseret(order).subscribe((data: any) => {
-          console.log(data)
           data.products = this.cartService.orders;
           // console.log(this.shippingPrice)
           // data.shipping.price = this.shippingPrice;
@@ -304,7 +312,11 @@ export class CheckoutComponent implements OnInit {
           this.cartService.orders = [];
           this.cartService.deleteAllLocalSorage();
           this.loadingBtn = false;
-          this.router.navigate(['/thank-you'], { state: { data: { data } } })
+          console.log(data);
+          order.shipping.title = this.getCartInfo.shipping.title;
+          const orderInfo = order as any;
+          orderInfo.confirmationNumber =  data.confirmationNumber;
+          this.router.navigate(['/thank-you'], { state: { data: { orderInfo } } })
   
           }
          }, err => {
