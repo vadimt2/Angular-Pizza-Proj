@@ -63,6 +63,7 @@ export class CartComponent implements OnInit {
         }
 
         this.shippingService.get().subscribe(data => {
+          console.log('shipping',data);
           this.shippings = data;
         });
 

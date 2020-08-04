@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { IProduct, IBellingAndShippInfo, IUser, IOrder, IOrderDetails } from '../../interfaces';
 import { CartService, OrderDataService, OrderService, CurrencyService, AlertService } from '../../services';
-import { BellingAndShippInfo, OrderDetails, Order, BellingOrShipping , User} from '../../common';
-
+import { BellingAndShippInfo, OrderDetails, Order, BellingOrShipping , User} from '../../models';
 import { Router, ActivatedRoute } from '@angular/router';
-
-
 
 
 @Component({
@@ -32,11 +29,9 @@ export class CheckoutComponent implements OnInit {
   loadingBtn:boolean = false;
   user:IUser = null;
  
- 
   loading = false;
   submitted = false;
   returnUrl: string;
-
 
   constructor(
     private cartService: CartService,
@@ -80,22 +75,19 @@ export class CheckoutComponent implements OnInit {
       stateSh: new FormControl('',),
       zipSh: new FormControl('', ),
     });
-    if(this.getCartInfo.shipping.title === "Delivery"){
+    if(this.getCartInfo.shipping.delivery)
       this.setSecAddressReq();
-    }
     else{
       this.setSecNotAddressReq();
       this.setNotRequiredFiled("address2B");
     }
 
     if (this.products.length > 0) {
- 
-        this.products.map(product => {
 
+        this.products.map(product => {
           this.selectedCurrency = this.currencyService.currency;
-          if(this.selectedCurrency === this.currencyService.defualtCurrency){
+          if(this.selectedCurrency === this.currencyService.defualtCurrency)
                  this.showCurrencyPrice = false;
-          }
           else{
             this.showCurrencyPrice = true;
             product.currencyPrice = this.currencyService.currencyValue * product.price;
@@ -123,9 +115,8 @@ export class CheckoutComponent implements OnInit {
           });
           this.shippingPrice = this.getCartInfo.shipping.price;
           this.subTotal = this.cartService.getSubTotal();
-          if(this.getCartInfo.shipping.title.toLowerCase() === "Delivery".toLowerCase()){
+          if(this.getCartInfo.shipping.delivery)
             this.delivery = true;
-          }
         });
       return;
     }
@@ -236,11 +227,8 @@ export class CheckoutComponent implements OnInit {
         shippingAddInfo.bellingOrShipping = BellingOrShipping.shipping;
       }
 
-
       //IF USER IS REGISTERED:
       // WILL ME A SERVICE CALL BY ID FROM THE LOGIN DATA AUTH SERVICE
-
-
       let user: IUser = new User();
       if(!this.user){
         user.email = biilingInfo.email;
@@ -251,8 +239,6 @@ export class CheckoutComponent implements OnInit {
         user.roleId = 3;
       }
       
-
-
       let order: IOrder = new Order();
       order.id = 0;
       order.note = this.getCartInfo.note;
@@ -324,16 +310,8 @@ export class CheckoutComponent implements OnInit {
           console.log(err)
         });
       }
-      
-
-
-
     }
-
-
     //  form.value.shipping.title;
-
-
     // this.router.navigate(['/checkout'])
   }
 }

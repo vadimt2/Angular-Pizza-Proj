@@ -187,7 +187,7 @@
                       <input type="text" class="form-control" formControlName="addressSh" placeholder="1234 Main St"
                       [ngClass]="{ 'is-invalid': submitted && f.addressSh.errors }">
                         <div *ngIf="submitted && f.addressSh.errors" class="invalid-feedback">
-                          <div *ngIf="f.zipB.addressSh.required">Address is required</div>
+                          <div *ngIf="f.addressSh.errors.required">Address is required</div>
                       </div> 
                     </div>
   

@@ -27,7 +27,7 @@
                 <tr class="product-cart" *ngFor="let product of products, let i=index">
                   <th scope="row" class="border-0">
                     <div class="p-2">
-                      <img src="{{product.images[0].url}}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                      <img src="{{product.images[0].imageData}}" alt="" width="70" class="img-fluid rounded shadow-sm">
                       <div class="ml-3 d-inline-block align-middle">
                         <h5 class="mb-0"> <a class="text-dark d-inline-block align-middle"
                             [routerLink]="['/product', product.id]">{{product.title}}</a></h5><span

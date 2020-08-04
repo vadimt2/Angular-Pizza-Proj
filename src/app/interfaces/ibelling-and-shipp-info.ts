@@ -1,5 +1,5 @@
 import { IOrder } from './iorder';
-import { BellingOrShipping } from '../common/belling-or-shipping.enum';
+import { BellingOrShipping } from '../models';
 
 export interface IBellingAndShippInfo {
     id:number;

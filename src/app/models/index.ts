@@ -5,4 +5,5 @@ export * from './order'
 export * from './order-details'
 export * from './product'
 export * from './user'
+export * from './alert'
 
